@@ -112,6 +112,8 @@ def expected_state_diff_properties():
                      'address': '0x3f98e477a361f777da14611a7e419a75fd238b6b',
                      'balance_from': Decimal('373225062580329529922'),
                      'balance_to': Decimal('373227934395239448282'),
+                     'nonce_from': None,
+                     'nonce_to': None,
                      'code_from': None,
                      'code_to': None})
     expected.append({'block_number': Decimal('56160'),
@@ -121,6 +123,8 @@ def expected_state_diff_properties():
                      'address': '0x9b2c46642caf6b936dc0633da521f1e946b7e18f',
                      'balance_from': Decimal('1463548993538340074'),
                      'balance_to': Decimal('1460677178628421714'),
+                     'nonce_from': 6,
+                     'nonce_to': 7,
                      'code_from': None,
                      'code_to': None})
     expected.append({'block_number': Decimal('56160'),
@@ -130,6 +134,8 @@ def expected_state_diff_properties():
                      'address': '0xdbb576b5b0e7bf0570a981aab3ad39a0c5f19eb1',
                      'balance_from': None,
                      'balance_to': None,
+                     'nonce_from': None,
+                     'nonce_to': None,
                      'code_from': None,
                      'code_to': None})
     return expected
