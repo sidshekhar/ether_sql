@@ -57,6 +57,9 @@ class StorageDiff(base):
         elif key[0] == '+':
             storage_from = None
             storage_to = storage_diff_row['+']
+        elif key[0] == '-':
+            storage_from = storage_diff_row['-']
+            storage_to = None
         else:
             raise ValueError('Unknown key {}'.format(key))
 
