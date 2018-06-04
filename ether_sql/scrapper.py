@@ -55,17 +55,17 @@ def add_block_number(block_number, ether_sql_session):
     # added the block data in the db session
     ether_sql_session.db_session.add(block)
 
+    block_trace_list = []
+    block_state_list = []
+
     if ether_sql_session.settings.PARSE_TRACE:
         block_trace_list = ether_sql_session.w3.parity.\
             traceReplayBlockTransactions(block_number,
                                          mode=['trace'])
-    elif ether_sql_session.settings.PARSE_STATE_DIFF:
+    if ether_sql_session.settings.PARSE_STATE_DIFF:
         block_state_list = ether_sql_session.w3.parity.\
             traceReplayBlockTransactions(block_number,
                                          mode=['stateDiff'])
-    else:
-        block_trace_list = []
-        block_state_list = []
 
     transaction_list = block_data['transactions']
     # loop to get the transaction, receipts, logs and traces of the block
@@ -92,7 +92,7 @@ def add_block_number(block_number, ether_sql_session):
 
         # adding traces
         if ether_sql_session.settings.PARSE_TRACE:
-            dict_trace_list = block_trace_list[index]
+            dict_trace_list = block_trace_list[index]['trace']
             ether_sql_session = Traces.\
                 add_trace_list(session=ether_sql_session,
                                trace_list=dict_trace_list,
@@ -103,7 +103,7 @@ def add_block_number(block_number, ether_sql_session):
 
         # adding state_diff
         if ether_sql_session.settings.PARSE_STATE_DIFF:
-            state_diff_dict = block_state_list[index]
+            state_diff_dict = block_state_list[index]['stateDiff']
             ether_sql_session = StateDiff.\
                 add_state_diff_dict(session=ether_sql_session,
                                     state_diff_dict=state_diff_dict,
